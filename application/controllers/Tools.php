@@ -15,7 +15,7 @@ class Tools extends CI_Controller
         $this->load->dbforge();
 
         // initiate faker
-        $this->faker = Faker\Factory::create();
+        //$this->faker = Faker\Factory::create();
 
         // Load Seeder class
         require_once APPPATH.'database/Seeder.php';
