@@ -45,8 +45,13 @@ class Chinchilla extends REST_Controller {
     public function index_put() {
         $this->JSONresponse(array("message" => "Chinchilla PUT"), 201);
     }
-    public function index_delete($id) {
-        $this->JSONresponse(array("message" => "Chinchilla DELETE Id: {$id}"));
+    public function index_delete($id='') {
+        if ($id == '') {
+            // No params
+            $this->JSONresponse(array("message" => "ERROR"), 404);
+        } else {
+            $this->JSONresponse(array("message" => "Chinchilla DELETE Id: {$id}"));
+        }
     }
 
 }
