@@ -19,10 +19,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $route['default_controller'] = 'Welcome';
 
 /* Chinchilla section */
-$route['Chinchilla']['GET']    = 'Chinchilla/test';
-$route['Chinchilla']['POST']   = 'Chinchilla/testPost';
-$route['Chinchilla']['PUT']    = 'Chinchilla/testPut';
-$route['Chinchilla']['DELETE'] = 'Chinchilla/testDelete';
+$route['Chinchilla'] = 'Chinchilla';
+
+$route['Chinchilla/(:any)']['DELETE'] = 'Chinchilla/$1';
+$route['Chinchilla/(:any)']['GET'] = 'Chinchilla/$1';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = false;

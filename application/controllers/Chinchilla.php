@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Chinchilla extends CI_Controller {
+class Chinchilla extends REST_Controller {
     /**
      * API RESTfull
      * 
@@ -28,20 +28,25 @@ class Chinchilla extends CI_Controller {
             		 ->set_output(json_encode($msg));
     }
 
-    public function test() {
-        $this->JSONresponse(array("message" => "Chinchilla GET"));
+    public function index_get($id='') {
+        if ($id != '') {
+            // Get chinchilla by Id
+            $this->JSONresponse(array("message" => "Chinchilla GET Id: {$id}"));
+        } else {
+            // Get all chinchillas
+            $this->JSONresponse(array("message" => "Chinchilla GET"));
+        }
     }
 
-    public function testPost() {
+    public function index_post() {
         $this->JSONresponse(array("message" => "Chinchilla POST"), 201);
     }
 
-    public function testPut() {
+    public function index_put() {
         $this->JSONresponse(array("message" => "Chinchilla PUT"), 201);
     }
-    public function testDelete() {
-        $this->JSONresponse(array("message" => "Chinchilla DELETE"));
+    public function index_delete($id) {
+        $this->JSONresponse(array("message" => "Chinchilla DELETE Id: {$id}"));
     }
-
 
 }
