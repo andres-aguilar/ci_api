@@ -29,17 +29,53 @@ class Chinchilla extends REST_Controller {
     }
 
     public function index_get($id='') {
+        $this->load->model("Chinchilla_model");
         if ($id != '') {
             // Get chinchilla by Id
-            $this->JSONresponse(array("message" => "Chinchilla GET Id: {$id}"));
+            $chinchilla = $this->Chinchilla_model->getChinchilla($id);
+            $this->JSONresponse($chinchilla[0]);
         } else {
             // Get all chinchillas
-            $this->JSONresponse(array("message" => "Chinchilla GET"));
+            $chinchillas = $this->Chinchilla_model->getAll();
+            $this->JSONresponse($chinchillas);
         }
     }
 
     public function index_post() {
-        $this->JSONresponse(array("message" => "Chinchilla POST"), 201);
+        if ($this->input->post()) {
+            $id = $this->input->post('idChinchilla', true);
+            $idMother = $this->input->post('idMother', true);
+            $idFather = $this->input->post('idFather', true);
+            $colony = $this->input->get_post('colony', true);
+            $age = $this->input->get_post('age', true);
+            $quality = $this->input->get_post('quality', true);
+            $status = $this->input->get_post('status', true);
+            $location = $this->input->get_post('location', true);
+            $date = date("Y-m-d");
+            $gender = $this->input->get_post('gender', true);
+            $birth_date = $this->input->get_post('birth', true);
+            //$image = "assets/media/{$this->input->get_post('bornCode', true)}.jpg";
+            $image = $this->input->get_post('image', true);
+
+            $chinchilla = array(
+                'idChinchilla' => $id,
+                'idMadre' => $idMother,
+                'idPadre' => $idFather,
+                'colonia' => $colony,
+                'edad' => $age,
+                'calidad' => $quality,
+                'estatus' => $status,
+                'posicion' => $location,
+                'genero' => $gender,
+                'fecha_alta' => $date,
+                'fecha_nacimiento' => $birth_date,
+                'imagen' => $image
+            );
+
+            $this->JSONresponse($chinchilla, 201);
+        } else {
+            $this->JSONresponse(array("message" => "ERROR"), 404);
+        }
     }
 
     public function index_put() {
