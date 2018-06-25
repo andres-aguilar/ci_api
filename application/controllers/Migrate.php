@@ -15,7 +15,7 @@ class Migrate extends CI_Controller
         }
     }
 
-    public function migrate_todo()
+    public function migrate_all()
     {
         $this->load->library('migration');
 

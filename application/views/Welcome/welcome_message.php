@@ -1,3 +1,3 @@
 <h1>
-    Wellcome to Chinchibei
+    Wellcome
 </h1>
