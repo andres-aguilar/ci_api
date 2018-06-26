@@ -22,6 +22,10 @@ class Chinchilla_model extends CI_Model {
         return $query->result();
     }
 
+    public function registerChinchilla($chinchilla) {
+        return $this->db->insert('Chinchilla', $chinchilla);
+    }
+
     public function getMales() {
         $query = $this->db->query($this->get_males);
         return $query->result();

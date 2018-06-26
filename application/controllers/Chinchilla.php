@@ -21,7 +21,8 @@ class Chinchilla extends REST_Controller {
         /* Return a JSON message
 
             Params
-            $msg : Array with a message to encode as a JSON response
+            $msg    : Array with a message to encode as a JSON response
+            $status : Status http. (Default: 200) OK 
         */
         $this->output->set_status_header($status)
                      ->set_content_type('application/json', 'utf-8')
@@ -54,8 +55,21 @@ class Chinchilla extends REST_Controller {
             $date = date("Y-m-d");
             $gender = $this->input->get_post('gender', true);
             $birth_date = $this->input->get_post('birth', true);
-            //$image = "assets/media/{$this->input->get_post('bornCode', true)}.jpg";
-            $image = $this->input->get_post('image', true);
+            $image = "";
+            
+            // IUpload image
+            $config['upload_path'] = './assets/media/';  // chmod 777
+            $config['allowed_types'] = 'jpg';
+            $config["overwrite"] = true;
+            $config['file_name'] = "{$id}.jpg";
+            
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('image')) {
+                error_log($this->upload->display_errors());
+            } else {
+                error_log("OK, PHOTO UPLOADED");
+                $image = "assets/media/{$id}.jpg";
+            }
 
             $chinchilla = array(
                 'idChinchilla' => $id,
@@ -72,15 +86,23 @@ class Chinchilla extends REST_Controller {
                 'imagen' => $image
             );
 
-            $this->JSONresponse($chinchilla, 201);
+            $this->load->model("Chinchilla_model");
+            if ($this->Chinchilla_model->registerChinchilla($chinchilla)) {
+
+                $this->JSONresponse(array('message' => 'ok', 'chinchilla' => $chinchilla), 201);
+            } else {
+                $this->JSONresponse($this->messages['error']);
+            }
+
         } else {
-            $this->JSONresponse(array("message" => "ERROR"), 404);
+            $this->JSONresponse($this->messages['error'], 404);
         }
     }
 
     public function index_put() {
         $this->JSONresponse(array("message" => "Chinchilla PUT"), 201);
     }
+
     public function index_delete($id='') {
         if ($id == '') {
             // No params
