@@ -26,6 +26,12 @@ class Chinchilla_model extends CI_Model {
         return $this->db->insert('Chinchilla', $chinchilla);
     }
 
+    public function updateChinchilla($chinchilla, $id) {
+        $this->db->set($chinchilla);
+        $this->db->where('idChinchilla', $id);
+        return $this->db->update('Chinchilla');
+    }
+
     public function getMales() {
         $query = $this->db->query($this->get_males);
         return $query->result();

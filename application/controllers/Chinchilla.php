@@ -17,45 +17,36 @@ class Chinchilla extends REST_Controller {
         'error'   => array('message' => "error")
     );
 
-    private function JSONresponse($msg, $status=200) {
-        /* Return a JSON message
-
-            Params
-            $msg    : Array with a message to encode as a JSON response
-            $status : Status http. (Default: 200) OK 
-        */
-        $this->output->set_status_header($status)
-                     ->set_content_type('application/json', 'utf-8')
-            		 ->set_output(json_encode($msg));
-    }
-
     public function index_get($id='') {
         $this->load->model("Chinchilla_model");
         if ($id != '') {
             // Get chinchilla by Id
             $chinchilla = $this->Chinchilla_model->getChinchilla($id);
-            $this->JSONresponse($chinchilla[0]);
+
+            $status = (empty($chinchilla)) ? 404 : 200;
+            $chinchilla = (!empty($chinchilla)) ? $chinchilla[0] : $this->messages['error'];
+            $this->response($chinchilla, $status);
         } else {
             // Get all chinchillas
             $chinchillas = $this->Chinchilla_model->getAll();
-            $this->JSONresponse($chinchillas);
+            $this->response($chinchillas);
         }
     }
 
     public function index_post() {
         if ($this->input->post()) {
-            $id = $this->input->post('idChinchilla', true);
-            $idMother = $this->input->post('idMother', true);
-            $idFather = $this->input->post('idFather', true);
-            $colony = $this->input->get_post('colony', true);
-            $age = $this->input->get_post('age', true);
-            $quality = $this->input->get_post('quality', true);
-            $status = $this->input->get_post('status', true);
-            $location = $this->input->get_post('location', true);
-            $date = date("Y-m-d");
-            $gender = $this->input->get_post('gender', true);
-            $birth_date = $this->input->get_post('birth', true);
-            $image = "";
+            $id         = $this->input->post('idChinchilla', true);
+            $idMother   = $this->input->post('idMother', true);
+            $idFather   = $this->input->post('idFather', true);
+            $colony     = $this->input->post('colony', true);
+            $age        = $this->input->post('age', true);
+            $quality    = $this->input->post('quality', true);
+            $status     = $this->input->post('status', true);
+            $location   = $this->input->post('location', true);
+            $gender     = $this->input->post('gender', true);
+            $birth_date = $this->input->post('birth', true);
+            $date       = date("Y-m-d");
+            $image      = "";
             
             // IUpload image
             $config['upload_path'] = './assets/media/';  // chmod 777
@@ -89,26 +80,57 @@ class Chinchilla extends REST_Controller {
             $this->load->model("Chinchilla_model");
             if ($this->Chinchilla_model->registerChinchilla($chinchilla)) {
 
-                $this->JSONresponse(array('message' => 'ok', 'chinchilla' => $chinchilla), 201);
+                $this->response(array('message' => 'ok', 'chinchilla' => $chinchilla), 201);
             } else {
-                $this->JSONresponse($this->messages['error']);
+                $this->response($this->messages['error']);
             }
 
         } else {
-            $this->JSONresponse($this->messages['error'], 404);
+            $this->response($this->messages['error'], 404);
         }
     }
 
     public function index_put() {
-        $this->JSONresponse(array("message" => "Chinchilla PUT"), 201);
+        $id         = $this->put('idChinchilla');
+        $idMother   = $this->put('idMother');
+        $idFather   = $this->put('idFather');
+        $colony     = $this->put('colony');
+        $age        = $this->put('age');
+        $quality    = $this->put('quality');
+        $status     = $this->put('status');
+        $location   = $this->put('location');
+        $gender     = $this->put('gender');
+
+        $chinchilla = array(
+            'idMadre' => $idMother,
+            'idPadre' => $idFather,
+            'colonia' => $colony,
+            'edad' => $age,
+            'calidad' => $quality,
+            'estatus' => $status,
+            'posicion' => $location,
+            'genero' => $gender
+        );
+
+        $this->load->model("Chinchilla_model");
+
+        $res = $this->Chinchilla_model->updateChinchilla($chinchilla, $id);
+        $this->response(array('message' => 'success', 'id'=> $id, 'chinchilla' => $res), 201);
+
+        // if ($this->Chinchilla_model->updateChinchilla($chinchilla, $id)) {
+        //     $this->response(array('message' => 'success', 'chinchilla' => $result), 201);
+        // } else {
+        //     $this->response(array("message" => "ERROR"), 404);
+        // }
     }
 
     public function index_delete($id='') {
         if ($id == '') {
             // No params
-            $this->JSONresponse(array("message" => "ERROR"), 404);
+            $this->response(array("message" => "ERROR"), 404);
         } else {
-            $this->JSONresponse(array("message" => "Chinchilla DELETE Id: {$id}"));
+            // set Status = 8
+            $this->response(array("message" => "Chinchilla DELETE Id: {$id}"));
         }
     }
 
