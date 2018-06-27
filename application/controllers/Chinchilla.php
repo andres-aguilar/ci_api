@@ -33,6 +33,13 @@ class Chinchilla extends REST_Controller {
         }
     }
 
+    public function exist($id) {
+        $this->load->model("Chinchilla_model");
+        $chinchilla = $this->Chinchilla_model->getChinchilla($id);
+
+        return !empty($chinchilla);
+    }
+
     public function index_post() {
         if ($this->input->post()) {
             $id         = $this->input->post('idChinchilla', true);
@@ -112,25 +119,24 @@ class Chinchilla extends REST_Controller {
             'genero' => $gender
         );
 
-        $this->load->model("Chinchilla_model");
-
-        $res = $this->Chinchilla_model->updateChinchilla($chinchilla, $id);
-        $this->response(array('message' => 'success', 'id'=> $id, 'chinchilla' => $res), 201);
-
-        // if ($this->Chinchilla_model->updateChinchilla($chinchilla, $id)) {
-        //     $this->response(array('message' => 'success', 'chinchilla' => $result), 201);
-        // } else {
-        //     $this->response(array("message" => "ERROR"), 404);
-        // }
+        if (!$this->exist($id)) {
+            $this->response($this->messages["error"], 404);
+        } else {
+            $this->load->model("Chinchilla_model");    
+            $res = $this->Chinchilla_model->updateChinchilla($chinchilla, $id);
+            $this->response(array('message' => 'success', 'id'=> $id), 201);
+        }
     }
 
     public function index_delete($id='') {
-        if ($id == '') {
-            // No params
+        if ($id == '' || !$this->exist($id)) {
             $this->response(array("message" => "ERROR"), 404);
         } else {
+            $this->load->model("Chinchilla_model");
+            
             // set Status = 8
-            $this->response(array("message" => "Chinchilla DELETE Id: {$id}"));
+            $res = $this->Chinchilla_model->updateChinchilla(array('estatus' => 8), $id);
+            $this->response(array('message' => 'success'), 201);
         }
     }
 
