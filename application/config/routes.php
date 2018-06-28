@@ -24,5 +24,8 @@ $route['Chinchilla'] = 'Chinchilla';
 $route['Chinchilla/(:any)']['DELETE'] = 'Chinchilla/$1';
 $route['Chinchilla/(:any)']['GET'] = 'Chinchilla/$1';
 
+/* Crosses section */
+$route['Crosses/(:any)']['GET'] = 'Crosses/$1';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = false;

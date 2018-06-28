@@ -18,7 +18,7 @@ class Chinchilla extends REST_Controller
         'error' => array('message' => "error"),
     );
 
-    public function index_get($id = '')
+    public function index_get($id='')
     {
         $this->load->model("Chinchilla_model");
         if ($id != '') {
@@ -75,7 +75,7 @@ class Chinchilla extends REST_Controller
             $date = date("Y-m-d");
             $image = "";
 
-            // IUpload image
+            // Upload image
             $config['upload_path'] = './assets/media/'; // chmod 777
             $config['allowed_types'] = 'jpg';
             $config["overwrite"] = true;
@@ -149,7 +149,7 @@ class Chinchilla extends REST_Controller
         }
     }
 
-    public function index_delete($id = '')
+    public function index_delete($id='')
     {
         if ($id == '' || !$this->exist($id)) {
             $this->response(array("message" => "ERROR"), 404);
