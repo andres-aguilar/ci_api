@@ -17,7 +17,7 @@ class Crosses extends REST_Controller
     }
 
     public function index_get($id='') {
-        if ($id != '' || !$this->exist($id)) {
+        if ($id != '' && $this->exist($id)) {
             $this->load->model('Chinchilla_model');
 
             $crosses = $this->Chinchilla_model->getPossibleCrosses($id);
@@ -28,6 +28,16 @@ class Crosses extends REST_Controller
     }
 
     public function index_post() {
-        $this->response($this->messages['success']);
+        if ($this->input->post())  {
+            $this->load->model('Chinchilla_model');
+            $male    = $this->post('male');
+            $females = $this->post('females'); 
+
+            $this->Chinchilla_model->registerCrosses($male, $females);
+
+            $this->response(array('male' => $male, 'females' => $females), 201);
+        } else {
+            $this->response($this->messages['error'], 404);
+        }
     }
 }
