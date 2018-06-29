@@ -18,7 +18,7 @@ class Tools extends CI_Controller
         //$this->faker = Faker\Factory::create();
 
         // Load Seeder class
-        require_once APPPATH.'database/Seeder.php';
+        require_once APPPATH . 'database/Seeder.php';
     }
 
     public function message($to = 'World')

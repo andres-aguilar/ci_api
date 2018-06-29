@@ -18,7 +18,7 @@ class Chinchilla extends REST_Controller
         'error' => array('message' => "error"),
     );
 
-    public function index_get($id='')
+    public function index_get($id = '')
     {
         $this->load->model("Chinchilla_model");
         if ($id != '') {
@@ -149,7 +149,7 @@ class Chinchilla extends REST_Controller
         }
     }
 
-    public function index_delete($id='')
+    public function index_delete($id = '')
     {
         if ($id == '' || !$this->exist($id)) {
             $this->response(array("message" => "ERROR"), 404);

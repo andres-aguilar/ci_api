@@ -7,11 +7,12 @@ class Migrate extends CI_Controller
         echo "Hola mundo" . PHP_EOL;
     }
 
-    public function list_migrations() {
+    public function list_migrations()
+    {
         $this->load->library('migration');
 
-        foreach($this->migration->find_migrations() as $file) {
-            echo "- {$file}".PHP_EOL;
+        foreach ($this->migration->find_migrations() as $file) {
+            echo "- {$file}" . PHP_EOL;
         }
     }
 
@@ -21,10 +22,10 @@ class Migrate extends CI_Controller
 
         echo "Migration....";
         if (!$this->migration->current()) {
-            echo "ERROR: ".PHP_EOL;
+            echo "ERROR: " . PHP_EOL;
             show_error($this->migration->error_string());
         } else {
-            echo "DONE".PHP_EOL;
+            echo "DONE" . PHP_EOL;
         }
     }
 }
