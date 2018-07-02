@@ -15,7 +15,7 @@ class Quality extends REST_Controller {
         return !empty($item);
     }
 
-    public function create() {
+    public function index_post() {
         if ($this->input->post()) {
             $this->response($this->messages['success'], 201);
         } else {
@@ -23,7 +23,7 @@ class Quality extends REST_Controller {
         }
     }
 
-    public function get($id = '') {
+    public function index_get($id = '') {
         if ($id != '') {
             if ($this->exist($id)) {
                 $this->response($this->messages['success']);
@@ -35,7 +35,7 @@ class Quality extends REST_Controller {
         }
     }
 
-    public function update($id = '') {
+    public function index_put($id = '') {
         if ($id != '' && $this->exist($id)) {
             $this->response($this->messages['success'], 201);
         } else {
