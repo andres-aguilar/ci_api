@@ -6,6 +6,7 @@
 
  @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,700");
 
+
 :root {
     --dark-green: #1a7e1f;
     --green: #28a745;
@@ -28,3 +29,26 @@
   }
 
   a, a:visited { color: inherit }
+
+  .container {
+      height: 100vh;
+      display: gird;
+      grid-template-areas: 
+            'header header header header header header'
+            'menu menu content content content content'
+  }
+
+  .header {
+      height: 50px;
+      background-color: #007bff;
+      grid-area: header;
+  }
+
+  .menu {
+      background-color: #007bff;
+      grid-area: menu;
+  }
+
+  .content {
+    grid-area: content;
+  }
