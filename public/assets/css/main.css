@@ -4,51 +4,106 @@
  * version : 0.0.1
  */
 
- @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,700");
-
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
 
 :root {
-    --dark-green: #1a7e1f;
-    --green: #28a745;
-    --white: #f5f5f5;
-    --blue: #007bff;
-    --red: #d9534f;
-    --light: #f0f0f0;
-    --dark-grey: #3a3b3a;
-    --black: #000;
-    --transparent: rgba(0, 0, 0, 0.15);
+	--dark-green: #1a7e1f;
+	--green: #28a745;
+	--white: #f5f5f5;
+	--blue: #007bff;
+	--red: #d9534f;
+	--light: #f0f0f0;
+	--dark-grey: #3a3b3a;
+	--black: #000;
+	--transparent: rgba(0, 0, 0, 0.15);
 }
 
-*, *::before, *::after {
-    margin: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-      background-color: var(--light)
-  }
+*,
+*::before,
+*::after {
+	margin: 0;
+	box-sizing: border-box;
+}
 
-  a, a:visited { color: inherit }
+body {
+	background-color: var(--light);
+}
 
-  .container {
-      height: 100vh;
-      display: gird;
-      grid-template-areas: 
-            'header header header header header header'
-            'menu menu content content content content'
-  }
+a,
+a:visited {
+    color: inherit;
+    text-decoration: none;
+}
 
-  .header {
-      height: 50px;
-      background-color: #007bff;
-      grid-area: header;
-  }
+.container {
+    display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	grid-template-areas:
+    'header header header header header header'
+    'menu content content content content content';
+}
 
-  .menu {
-      background-color: #007bff;
-      grid-area: menu;
-  }
+.header {
+    grid-area: header;
+    height: 10vh;
+    padding: 1em 2em;
+}
 
-  .content {
+header > h1 {
+    display: inline;
+}
+
+.logo {
+    font-size: 1.5em;
+    color: #616096;
+    text-shadow: 2px 1px #fff;
+}
+
+.header-menu {
+    color: #000;
+    float: right;
+    margin-top: 1.2em;
+}
+
+.header-menu > ul > li {
+    display: inline;
+    font-size: 0.8em;
+}
+
+.header-menu > ul > li > a,
+.header-menu > ul > li > a > i {
+    margin-right: 0.5em;
+}
+
+.menu {
+    grid-area: menu;
+    height: 90vh;
+}
+
+.content {
     grid-area: content;
-  }
+    margin: 2em;
+    padding: 1em;
+    border-radius: 5px;
+    background-color: var(--white);
+    box-shadow: 4px 4px 2px var(--transparent);
+}
+
+.navigation-title {
+    margin-top: 1em;
+    margin-bottom: 2em;
+    text-align: center;
+}
+
+ul, li {
+    list-style: none;
+    font-size: 1.1em;
+}
+
+nav > ul > li {
+    margin: 1.5em 0;
+}
+
+a > i {
+    margin-right: 1em;
+}

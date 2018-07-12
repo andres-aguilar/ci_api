@@ -5,7 +5,7 @@ Vue.http.options.emulateJSON = true // web server can't handle requests encoded 
 new Vue({
   el: '#chinchilla-app',
   data: {
-    nameApp: 'Chinchillas',
+    nameApp: 'Test app',
     tasks: []
   },
   beforeMount() {

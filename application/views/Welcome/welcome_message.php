@@ -1,4 +1,4 @@
-<div class="container">
+<div class="content-wrapper">
   <div class="message hide">
     <p class="message-text"></p>
   </div>
