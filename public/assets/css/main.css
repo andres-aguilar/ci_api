@@ -12,7 +12,7 @@
 	--white: #f5f5f5;
 	--blue: #007bff;
 	--red: #d9534f;
-	--light: #f0f0f0;
+	--light: #d0d0d0;
 	--dark-grey: #3a3b3a;
 	--black: #000;
 	--transparent: rgba(0, 0, 0, 0.15);
@@ -75,6 +75,10 @@ header > h1 {
     margin-right: 0.5em;
 }
 
+.header-menu > ul > li > a:hover {
+    text-decoration: underline;
+}
+
 .menu {
     grid-area: menu;
     height: 90vh;
@@ -104,6 +108,10 @@ nav > ul > li {
     margin: 1.5em 0;
 }
 
-a > i {
+nav > ul > li > a > i {
     margin-right: 1em;
+}
+
+nav > ul > li > a:hover {
+    font-size: 1.1em;
 }
